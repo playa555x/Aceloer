@@ -3,16 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FuSion E - PDF Version</title>
+    <title>FuSion E - ArcelorMittal Rettungskonzept</title>
     <style>
         @page {
             size: A4;
-            margin: 15mm;
-            @bottom-center {
-                content: "FuSion E - ArcelorMittal Rettungskonzept";
-                font-size: 8pt;
-                color: #666;
-            }
+            margin: 20mm;
         }
         
         * {
@@ -23,21 +18,31 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 11pt;
-            line-height: 1.5;
+            font-size: 12pt;
+            line-height: 1.6;
             color: #2c3e50;
+            background: #f5f6fa;
+            margin: 0;
+            padding: 20mm;
+        }
+        
+        .presentation-container {
+            max-width: 210mm;
+            margin: 0 auto;
             background: white;
+            box-shadow: 0 10pt 30pt rgba(0,0,0,0.15);
+            border-radius: 15pt;
+            overflow: hidden;
+            position: relative;
         }
         
         .page {
             width: 100%;
-            min-height: 25cm;
             page-break-after: always;
             background: white;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
+            min-height: 25cm;
         }
         
         .page:last-child {
@@ -47,177 +52,103 @@
         .header {
             background: linear-gradient(135deg, #2c3e50, #34495e);
             color: white;
-            padding: 15mm;
+            padding: 20mm;
             text-align: center;
-            margin: -15mm -15mm 15mm -15mm;
+            margin: -20mm -20mm 20mm -20mm;
+            page-break-inside: avoid;
         }
         
         .logo {
-            font-size: 28pt;
+            font-size: 32pt;
             font-weight: 800;
-            margin-bottom: 5mm;
+            margin-bottom: 8mm;
             letter-spacing: -0.8pt;
         }
         
         .page-title {
-            font-size: 18pt;
+            font-size: 20pt;
             font-weight: 700;
-            margin-bottom: 3mm;
+            margin-bottom: 5mm;
             line-height: 1.2;
         }
         
         .subtitle {
-            font-size: 12pt;
+            font-size: 13pt;
             opacity: 0.95;
             font-weight: 400;
+            line-height: 1.4;
         }
         
         .content {
-            flex: 1;
             padding: 0;
         }
         
-        .section {
-            margin-bottom: 10mm;
-        }
-        
-        .section h3 {
-            color: #2c3e50;
-            font-size: 14pt;
-            font-weight: 700;
-            margin-bottom: 5mm;
-            border-bottom: 2pt solid #3498db;
-            padding-bottom: 2mm;
-        }
-        
-        .section p {
-            margin-bottom: 5mm;
-            text-align: justify;
-        }
-        
-        .highlight-box {
+        .executive-summary {
             background: #f8f9fa;
-            border-left: 4pt solid #e74c3c;
-            padding: 8mm;
-            margin: 8mm 0;
-            border-radius: 5pt;
+            border-left: 6pt solid #e74c3c;
+            padding: 15mm;
+            margin: 0 0 15mm 0;
+            border-radius: 8pt;
+            page-break-inside: avoid;
         }
         
-        .highlight-box h4 {
+        .executive-summary h3 {
             color: #c0392b;
-            font-size: 12pt;
+            font-size: 16pt;
+            margin-bottom: 8mm;
             font-weight: 700;
-            margin-bottom: 5mm;
         }
         
-        .info-box {
-            background: #ecf0f1;
-            border: 1pt solid #bdc3c7;
-            padding: 8mm;
-            margin: 8mm 0;
-            border-radius: 5pt;
+        .executive-summary p {
+            font-size: 12pt;
+            line-height: 1.6;
+            color: #2c3e50;
+            margin-bottom: 6mm;
         }
         
-        .financial-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 8mm 0;
-            font-size: 10pt;
+        .section-box {
+            background: white;
+            border: 1pt solid #dee2e6;
+            border-radius: 10pt;
+            margin: 15mm 0;
+            overflow: hidden;
+            page-break-inside: avoid;
+            box-shadow: 0 4pt 12pt rgba(44, 62, 80, 0.08);
         }
         
-        .financial-table th,
-        .financial-table td {
-            border: 1pt solid #bdc3c7;
-            padding: 4mm;
-            text-align: left;
-        }
-        
-        .financial-table th {
+        .section-header {
             background: #34495e;
             color: white;
+            padding: 12mm 15mm;
+            font-size: 14pt;
             font-weight: 700;
-            text-align: center;
-            font-size: 9pt;
         }
         
-        .financial-table .total-row {
-            background: #ecf0f1;
-            font-weight: 700;
-            border-top: 2pt solid #34495e;
+        .section-header.urgent {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
         }
         
-        .concept-grid {
-            display: table;
-            width: 100%;
-            margin: 8mm 0;
-            border-collapse: separate;
-            border-spacing: 3mm;
+        .section-header.solution {
+            background: linear-gradient(135deg, #27ae60, #229954);
         }
         
-        .concept-row {
-            display: table-row;
+        .section-header.technical {
+            background: linear-gradient(135deg, #3498db, #2980b9);
         }
         
-        .concept-cell {
-            display: table-cell;
-            width: 25%;
-            text-align: center;
-            vertical-align: top;
-            padding: 6mm;
-            background: #f8f9fa;
-            border: 1pt solid #dee2e6;
-            border-radius: 5pt;
+        .section-header.financial {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
         }
         
-        .pillar-title {
-            font-size: 10pt;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 3mm;
-            border-bottom: 2pt solid #3498db;
-            padding-bottom: 2mm;
+        .section-content {
+            padding: 15mm;
+            background: white;
+            line-height: 1.6;
         }
         
-        .pillar-desc {
-            font-size: 9pt;
-            color: #555;
-            line-height: 1.3;
-        }
-        
-        .partners-grid {
-            display: table;
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 2mm;
-            margin: 5mm 0;
-        }
-        
-        .partners-row {
-            display: table-row;
-        }
-        
-        .partner-cell {
-            display: table-cell;
-            width: 25%;
-            text-align: center;
-            vertical-align: top;
-            padding: 4mm;
-            background: #f8f9fa;
-            border: 1pt solid #dee2e6;
-            border-radius: 3pt;
-        }
-        
-        .partner-name {
-            font-size: 9pt;
-            font-weight: 700;
-            margin-bottom: 2mm;
-            color: #2c3e50;
-        }
-        
-        .partner-role {
-            font-size: 8pt;
-            color: #555;
-            line-height: 1.2;
+        .section-content p {
+            margin-bottom: 8mm;
+            font-size: 11pt;
         }
         
         .highlight {
@@ -240,46 +171,260 @@
             color: #3498db;
         }
         
-        .positive {
+        .concept-grid {
+            display: table;
+            width: 100%;
+            margin: 12mm 0;
+            border-collapse: separate;
+            border-spacing: 5mm;
+        }
+        
+        .concept-row {
+            display: table-row;
+        }
+        
+        .concept-cell {
+            display: table-cell;
+            width: 25%;
+            text-align: center;
+            vertical-align: top;
+            padding: 8mm;
+            background: #f8f9fa;
+            border: 1pt solid #dee2e6;
+            border-radius: 8pt;
+        }
+        
+        .pillar-title {
+            font-size: 11pt;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5mm;
+            border-bottom: 2pt solid #3498db;
+            padding-bottom: 3mm;
+        }
+        
+        .pillar-desc {
+            font-size: 10pt;
+            color: #555;
+            line-height: 1.4;
+        }
+        
+        .financial-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12mm 0;
+            font-size: 11pt;
+        }
+        
+        .financial-table th,
+        .financial-table td {
+            border: 1pt solid #dee2e6;
+            padding: 6mm;
+            text-align: left;
+        }
+        
+        .financial-table th {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: white;
+            font-weight: 700;
+            text-align: center;
+            font-size: 10pt;
+        }
+        
+        .financial-table .total-row {
+            background: #ecf0f1;
+            font-weight: 700;
+            border-top: 2pt solid #34495e;
+        }
+        
+        .financial-table .positive {
             color: #27ae60;
             font-weight: 700;
         }
         
-        .negative {
+        .financial-table .negative {
             color: #e74c3c;
             font-weight: 700;
         }
         
-        .timeline {
-            background: #f8f9fa;
-            border-left: 4pt solid #3498db;
-            padding: 6mm;
-            margin: 6mm 0;
-            border-radius: 0 5pt 5pt 0;
+        .call-to-action {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 15mm;
+            border-radius: 10pt;
+            text-align: center;
+            margin: 15mm 0;
+            page-break-inside: avoid;
         }
         
-        .timeline h4 {
-            color: #2980b9;
-            font-size: 11pt;
+        .call-to-action h3 {
+            font-size: 16pt;
+            font-weight: 700;
+            margin-bottom: 8mm;
+        }
+        
+        .call-to-action p {
+            font-size: 12pt;
+            line-height: 1.6;
+            font-weight: 400;
+            margin-bottom: 6mm;
+        }
+        
+        .partners-section {
+            background: #f8f9fa;
+            padding: 12mm;
+            margin: 15mm 0;
+            border-radius: 10pt;
+            border: 1pt solid #dee2e6;
+        }
+        
+        .partners-grid {
+            display: table;
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 3mm;
+        }
+        
+        .partners-row {
+            display: table-row;
+        }
+        
+        .partner-cell {
+            display: table-cell;
+            width: 25%;
+            text-align: center;
+            vertical-align: top;
+            padding: 6mm;
+            background: white;
+            border-radius: 6pt;
+            border: 1pt solid #dee2e6;
+        }
+        
+        .partner-name {
+            font-size: 10pt;
             font-weight: 700;
             margin-bottom: 3mm;
+            color: #2c3e50;
+        }
+        
+        .partner-role {
+            font-size: 9pt;
+            color: #555;
+            line-height: 1.3;
+        }
+        
+        .timeline-box {
+            background: #f8f9fa;
+            border-left: 6pt solid #3498db;
+            padding: 12mm;
+            margin: 12mm 0;
+            border-radius: 0 8pt 8pt 0;
+        }
+        
+        .timeline-box h4 {
+            color: #2980b9;
+            font-size: 13pt;
+            font-weight: 700;
+            margin-bottom: 6mm;
         }
         
         .timeline-item {
-            margin: 3mm 0;
-            font-size: 10pt;
-            padding-left: 3mm;
-            border-left: 2pt solid #bdc3c7;
-        }
-        
-        ul {
             margin: 5mm 0;
-            padding-left: 8mm;
+            font-size: 11pt;
+            padding-left: 5mm;
+            border-left: 2pt solid #bdc3c7;
+            padding-bottom: 3mm;
         }
         
-        li {
-            margin: 2mm 0;
+        .quote-box {
+            background: linear-gradient(135deg, #ecf0f1, #f8f9fa);
+            border-left: 6pt solid #27ae60;
+            padding: 12mm;
+            margin: 12mm 0;
+            border-radius: 0 8pt 8pt 0;
+            font-style: italic;
+        }
+        
+        .quote-box p {
+            font-size: 12pt;
+            color: #2c3e50;
+            margin-bottom: 6mm;
+        }
+        
+        .contact-footer {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 12mm;
+            text-align: center;
+            margin: 20mm -20mm 0 -20mm;
+            page-break-inside: avoid;
+        }
+        
+        .contact-footer h4 {
+            font-size: 14pt;
+            font-weight: 700;
+            margin-bottom: 5mm;
+        }
+        
+        .contact-info {
             font-size: 10pt;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+        
+        .page-number {
+            display: none;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 8mm auto;
+            background: #f8f9fa;
+            border-radius: 8pt;
+            overflow: hidden;
+            box-shadow: 0 2pt 8pt rgba(0,0,0,0.1);
+            page-break-inside: avoid;
+        }
+        
+        .video-container iframe {
+            width: 100%;
+            height: 225px;
+            border: none;
+            display: block;
+        }
+        
+        .video-caption {
+            padding: 5mm;
+            text-align: center;
+            font-size: 9pt;
+            color: #555;
+            background: white;
+        }
+        
+        @media print {
+            .video-container {
+                border: 1pt solid #dee2e6;
+                background: white;
+            }
+            .video-container iframe {
+                display: none;
+            }
+            .video-caption::after {
+                content: " (Video: https://youtu.be/IUhF2KlplYk?t=80)";
+                font-size: 8pt;
+                color: #777;
+            }
+        }
+        
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
         }
         
         @media print {
@@ -287,97 +432,157 @@
                 -webkit-print-color-adjust: exact; 
                 print-color-adjust: exact; 
             }
+            .page { 
+                page-break-after: always;
+                margin: 0;
+                padding: 0;
+            }
+            .page:last-child { 
+                page-break-after: avoid; 
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- Seite 1: Titel & Executive Summary -->
+<!-- Seite 1: Aktuelle Situation -->
 <div class="page">
     <div class="header">
         <div class="logo">FuSion E</div>
-        <div class="page-title">ArcelorMittal Bremen retten</div>
-        <div class="subtitle">Dekarbonisierung durch Trading-Hub + Sahara-Grünstrom<br>Eine Lösung für Deutschland</div>
+        <h1 class="page-title">ArcelorMittal Bremen retten</h1>
+        <p class="subtitle">Dekarbonisierung durch Trading-Hub + Sahara-Grünstrom<br>Eine Lösung für Deutschland</p>
     </div>
     
     <div class="content">
-        <div class="highlight-box">
-            <h4>🎯 Executive Summary - Die Lösung ist bereit</h4>
-            <p>Die <span class="number-highlight">ca. 3.300 Arbeitsplätze bei ArcelorMittal Bremen</span> stehen vor der Schließung nach dem gescheiterten Wasserstoffprojekt. FuSion E bietet eine sofortige, wirtschaftlich tragfähige Alternative durch ein innovatives <span class="blue-highlight">4-Säulen-Konzept</span>.</p>
+        <div class="executive-summary">
+            <h3>🎯 Die Lösung für ArcelorMittal ist bereit</h3>
+            <p>Die <span class="number-highlight">ca. 3.300 Arbeitsplätze bei ArcelorMittal Bremen</span> stehen vor der Schließung nach dem gescheiterten Wasserstoffprojekt. Doch FuSion E bietet eine sofortige, wirtschaftlich tragfähige Alternative.</p>
             
-            <p>Seit <span class="highlight">Januar 2025</span> führen wir intensive Gespräche mit ArcelorMittal. Nach anfänglicher Skepsis sind sie begeistert von unserem ganzheitlichen Ansatz, der echte Dekarbonisierung mit Profitabilität verbindet.</p>
+            <p>Seit <span class="highlight">Januar 2025</span> führen wir intensive Gespräche mit ArcelorMittal. Nach anfänglicher Skepsis gegenüber Speichertechnologien sind sie begeistert von unserem innovativen <span class="blue-highlight">4-Säulen-Konzept</span>, das echte Dekarbonisierung mit Profitabilität verbindet.</p>
+            
+            <p>Unser bewährter internationaler Partner <span class="success-highlight">Jean-Luc Westphal</span> (Aufsichtsrat Bank de France, Vizepräsident der USA Al Gore lobenswerte Anerkennung) bringt operative Exzellenz und jahrzehntelange Erfahrung mit Mega-Solarprojekten ein.</p>
         </div>
         
-        <div class="section">
-            <h3>⚠️ Kritische Situation für den Industriestandort</h3>
-            <p><span class="number-highlight">Wasserstoffprojekt gescheitert:</span> Das millionenschwere H2-Projekt konnte die Dekarbonisierung nicht wirtschaftlich darstellen.</p>
-            
-            <p><span class="highlight">Bedrohte Arbeitsplätze:</span> <span class="number-highlight">ca. 3.300 direkte + ca. 8.000 indirekte Arbeitsplätze</span> in der gesamten Wertschöpfungskette stehen auf dem Spiel.</p>
-            
-            <p><span class="highlight">Wirtschaftsschaden bei Schließung:</span> <span class="number-highlight">1,26 Milliarden Euro jährlich</span> durch Steuerausfälle, reduzierten Hafenumschlag (-40%) und Folgeabwanderungen.</p>
-            
-            <p><span class="highlight">Signal für Deutschland:</span> Eine Schließung würde bundesweit als Signal der Deindustrialisierung verstanden und den Verlust der deutschen Stahl-Kernkompetenz bedeuten.</p>
+        <div class="section-box">
+            <div class="section-header urgent">
+                ⚠️ Kritische Situation für den Industriestandort Deutschland
+            </div>
+            <div class="section-content">
+                <p><span class="number-highlight">Wasserstoffprojekt gescheitert:</span> Das millionenschwere H2-Projekt bei ArcelorMittal Bremen konnte die Dekarbonisierung nicht wirtschaftlich darstellen.</p>
+                
+                <p><span class="highlight">Bedrohte Arbeitsplätze:</span> <span class="number-highlight">ca. 3.300 direkte Arbeitsplätze</span> bei ArcelorMittal plus <span class="number-highlight">ca. 8.000 indirekte Arbeitsplätze</span> in der gesamten Wertschöpfungskette stehen auf dem Spiel.</p>
+                
+                <p><span class="highlight">Wirtschaftlicher Gesamtschaden:</span> Bei einer Schließung droht ein jährlicher Wirtschaftsschaden von <span class="number-highlight">1,26 Milliarden Euro</span> durch Steuerausfälle, reduzierten Hafenumschlag (-40%) und Folgeabwanderungen.</p>
+                
+                <p><span class="highlight">Signal für ganz Deutschland:</span> Eine Schließung würde bundesweit als Signal der Deindustrialisierung verstanden und den Verlust der deutschen Stahl-Kernkompetenz bedeuten.</p>
+            </div>
         </div>
         
-        <div class="section">
-            <h3>✅ Unsere 4-Säulen-Lösung überzeugt ArcelorMittal</h3>
-            <p><span class="success-highlight">Durchbruch in Gesprächen:</span> Anfangs war ArcelorMittal skeptisch gegenüber Batteriespeichern. Erst unser ganzheitliches 4-Säulen-Konzept hat sie überzeugt:</p>
-            <ul>
-                <li><span class="blue-highlight">Trading-Batterien</span> - Finanzierung durch Graustrom-Arbitrage (960 Mio €/Jahr)</li>
-                <li><span class="blue-highlight">Sahara-Grünstrom</span> - Echte CO2-Reduktion (4,2 Mio t/Jahr)</li>
-                <li><span class="blue-highlight">Lastspitzen-Management</span> - Netzstabilität durch 3 Batterietechnologien</li>
-                <li><span class="blue-highlight">Wasserstoff-Integration</span> - Sobald Deutschland Umlagen klärt</li>
-            </ul>
+        <div class="section-box">
+            <div class="section-header solution">
+                ✅ Unsere Lösung: 4-Säulen-Konzept überzeugt ArcelorMittal
+            </div>
+            <div class="section-content">
+                <p><span class="success-highlight">Durchbruch in den Gesprächen:</span> Anfangs war ArcelorMittal skeptisch gegenüber Batteriespeichern. Erst unser ganzheitliches 4-Säulen-Konzept hat sie überzeugt.</p>
+                
+                <p><span class="success-highlight">Die vier Säulen der Energiewende:</span></p>
+                <p>1. <span class="blue-highlight">Trading-Batterien</span> - Finanzierung durch Graustrom-Arbitrage<br>
+                2. <span class="blue-highlight">Sahara-Grünstrom</span> - Echte CO2-Reduktion<br>
+                3. <span class="blue-highlight">Lastspitzen-Management</span> - Netzstabilität<br>
+                4. <span class="blue-highlight">Wasserstoff-Integration</span> - Sobald Umlagen geklärt</p>
+                
+                <p><span class="success-highlight">Wasserstoff-Potenzial:</span> Unser Partner Jean-Luc Westphal unterstützt die Integration von Grünwasserstoff, sobald Deutschland die Situation bei Nebenkosten und Umlagen klärt.</p>
+            </div>
+        </div>
+        
+        <div class="quote-box">
+            <p>"Nach intensiven Gesprächen seit Januar 2025 ist ArcelorMittal begeistert von unserem 4-Säulen-Ansatz. Was als Skepsis gegenüber Speichern begann, wurde zur Überzeugung für eine ganzheitliche Dekarbonisierungsstrategie."</p>
         </div>
     </div>
 </div>
 
-<!-- Seite 2: Jean-Luc Westphal Partnership -->
+<!-- Seite 2: Partnerschaft & Expertise -->
 <div class="page">
     <div class="header">
         <div class="logo">FuSion E</div>
-        <div class="page-title">Bewährte internationale Partnerschaft</div>
-        <div class="subtitle">Jean-Luc Westphal - Unser Core Partner</div>
+        <h1 class="page-title">Bewährte internationale Partnerschaft</h1>
+        <p class="subtitle">Jean-Luc Westphal & das FuSion E Netzwerk</p>
     </div>
     
     <div class="content">
-        <div class="section">
-            <h3>🤝 Jean-Luc Westphal - Operative Exzellenz bewiesen</h3>
-            <p><span class="success-highlight">Bewährte Zusammenarbeit:</span> Jean-Luc und ich arbeiten bereits erfolgreich an mehreren Projekten zusammen. Die Abstimmung und Interaktion funktioniert perfekt - kein theoretisches Partnernetzwerk, sondern operative Realität.</p>
-            
-            <p><span class="success-highlight">Internationale Anerkennung und Vernetzung:</span></p>
-            <ul>
-                <li><span class="highlight">Aufsichtsrat Bank de France</span> - Zugang zu höchsten europäischen Finanzkreisen</li>
-                <li><span class="highlight">Vizepräsident der USA Al Gore lobenswerte Anerkennung</span> - Höchste internationale Glaubwürdigkeit</li>
-                <li><span class="highlight">Weltrekord In-Dach Installation</span> - Bewiesene technische Innovation</li>
-                <li><span class="highlight">Bordeaux 300 MW Solarpark</span> - Ehemals größte PV-Anlage Europas (Konzeption & Mitbau)</li>
-                <li><span class="highlight">20+ Jahre Mega-Solarprojekte</span> - Mit Hanau Groupe europaweit Großprojekte umgesetzt</li>
-            </ul>
+        <div class="section-box">
+            <div class="section-header solution">
+                🤝 Jean-Luc Westphal - Unser Core Partner
+            </div>
+            <div class="section-content">
+                <p><span class="success-highlight">Operationale Exzellenz bewiesen:</span> Jean-Luc und ich arbeiten bereits erfolgreich an mehreren Projekten zusammen. Die Abstimmung und Interaktion funktioniert perfekt.</p>
+                
+                <p><span class="success-highlight">Internationale Anerkennung:</span></p>
+                <p>• <span class="highlight">Aufsichtsrat Bank de France</span> - Zugang zu höchsten Finanzkreisen<br>
+                • <span class="highlight">Vizepräsident der USA Al Gore lobenswerte Anerkennung</span><br>
+                • <span class="highlight">Weltrekord In-Dach Installation</span> - Technische Innovation<br>
+                • <span class="highlight">Bordeaux 300 MW</span> - Ehemals größte PV-Anlage Europas</p>
+                
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/IUhF2KlplYk?start=80" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                    <div class="video-caption">
+                        <strong>Vizepräsident der USA Al Gore</strong><br>
+                        Lobenswerte Anerkennung für Jean-Luc Westphal
+                    </div>
+                </div>
+                
+                <p><span class="success-highlight">Kreative Ergänzung geschätzt:</span> Jean-Luc schätzt meine innovativen Ideen und sieht großes Potenzial in der Wasserstoff-Integration, sobald Deutschland die regulatorischen Rahmenbedingungen klärt.</p>
+                
+                <p><span class="success-highlight">20+ Jahre Mega-Solarprojekte:</span> Mit Hanau Groupe hat er europaweit Großprojekte konzipiert und umgesetzt.</p>
+            </div>
         </div>
         
-        <div class="info-box">
-            <p><span class="blue-highlight">Al Gore Anerkennung dokumentiert:</span> Die lobenswerte Anerkennung durch den ehemaligen Vizepräsidenten der USA Al Gore ist öffentlich in einem YouTube-Video dokumentiert (https://youtu.be/IUhF2KlplYk?t=80) und unterstreicht die internationale Anerkennung von Jean-Luc's Arbeit.</p>
+        <div class="section-box">
+            <div class="section-header technical">
+                🔧 Weitere strategische Partner
+            </div>
+            <div class="section-content">
+                <p><span class="blue-highlight">Enlop GmbH - EPC Partner:</span></p>
+                <p>• <span class="number-highlight">1,5 GW / 3 GWh Speicher aktuell im Bau</span><br>
+                • Deutschlands größter Graustromspeicher<br>
+                • Bewiesene Gigawatt-Erfahrung im Speicherbau</p>
+                
+                <p><span class="blue-highlight">Politische Vernetzung:</span></p>
+                <p>• <span class="highlight">Florian Wehner</span> - Vorstand MIT Union Fulda, CDU-Wirtschaftspolitik<br>
+                • <span class="highlight">ABAO</span> - Termin Friedrich Merz + Katharina Reiche am 8. Juli 2025<br>
+                • <span class="highlight">WSKW Österreich</span> - Höchste politische Ebenen, EU-Energiedrehscheibe</p>
+                
+                <p><span class="blue-highlight">Internationale Finanzierung:</span></p>
+                <p>• <span class="highlight">HAC mit Helmut Krambeck</span> - Institutionelle Gelder, USA-Partnerschaften<br>
+                • <span class="highlight">Lichtblick</span> - Stromtransfer-Gespräche, Markt-Validierung</p>
+            </div>
         </div>
         
-        <div class="section">
-            <h3>💨 Wasserstoff-Potenzial</h3>
-            <p><span class="success-highlight">Kreative Ergänzung geschätzt:</span> Jean-Luc schätzt meine innovativen Ideen und sieht großes Potenzial in der Wasserstoff-Integration.</p>
-            
-            <p><span class="blue-highlight">Regulatorische Klarheit abwarten:</span> Sobald Deutschland die Situation bei Nebenkosten und Umlagen für Wasserstoff klärt, können wir eine vollständige Grünwasserstoff-Produktion für ArcelorMittal implementieren.</p>
-            
-            <p><span class="blue-highlight">Vollständige Unterstützung:</span> Jean-Luc würde die technische Umsetzung der Wasserstoff-Integration vollständig unterstützen und seine jahrzehntelange Erfahrung einbringen.</p>
+        <div class="section-box">
+            <div class="section-header financial">
+                💡 Wasserstoff-Integration möglich
+            </div>
+            <div class="section-content">
+                <p><span class="blue-highlight">Regulatorische Klarheit abwarten:</span> Sobald Deutschland die Situation bei Nebenkosten und Umlagen für Wasserstoff klärt, können wir eine vollständige Grünwasserstoff-Produktion für ArcelorMittal implementieren.</p>
+                
+                <p><span class="blue-highlight">Jean-Luc's Unterstützung:</span> Unser Partner sieht großes Potenzial in der Wasserstoff-Ergänzung und würde die technische Umsetzung vollständig unterstützen.</p>
+                
+                <p><span class="blue-highlight">Flexible Lösung:</span> Das 4-Säulen-Konzept kann je nach regulatorischer Entwicklung angepasst werden - von reiner Elektrifizierung bis zur vollständigen Wasserstoff-Integration.</p>
+            </div>
         </div>
         
-        <div class="section">
-            <h3>🌍 Weitere strategische Partner</h3>
-            <ul>
-                <li><span class="highlight">Enlop GmbH:</span> EPC-Partner mit 1,5 GW Speicher aktuell im Bau - bewiesene Gigawatt-Erfahrung</li>
-                <li><span class="highlight">Florian Wehner:</span> MIT Union Fulda, direkter Zugang zur CDU-Wirtschaftspolitik</li>
-                <li><span class="highlight">ABAO:</span> Friedrich Merz + Katharina Reiche Termin am 8. Juli 2025</li>
-                <li><span class="highlight">HAC Helmut Krambeck:</span> Institutionelle Gelder, USA-Partnerschaften</li>
-                <li><span class="highlight">Lichtblick:</span> Stromtransfer-Gespräche, Markt-Validierung</li>
-            </ul>
+        <div class="timeline-box">
+            <h4>🌟 Warum unsere Partnerschaft funktioniert</h4>
+            <div class="timeline-item"><span class="success-highlight">Bewährte Zusammenarbeit:</span> Bereits mehrere gemeinsame Projekte erfolgreich umgesetzt</div>
+            <div class="timeline-item"><span class="success-highlight">Perfekte Abstimmung:</span> Ausgezeichnete Kommunikation und Interaktion in der Praxis</div>
+            <div class="timeline-item"><span class="success-highlight">Komplementäre Stärken:</span> Jean-Luc's operative Exzellenz + meine kreativen Innovationen</div>
+            <div class="timeline-item"><span class="success-highlight">Internationale Vernetzung:</span> Von Bank de France bis Al Gore - höchste Glaubwürdigkeit</div>
         </div>
+        
+        <div class="page-number">Seite 2 von 4</div>
     </div>
 </div>
 
@@ -385,8 +590,8 @@
 <div class="page">
     <div class="header">
         <div class="logo">FuSion E</div>
-        <div class="page-title">Das 4-Säulen-System</div>
-        <div class="subtitle">Technisches Konzept für Bremen Energy Hub</div>
+        <h1 class="page-title">Technisches Konzept</h1>
+        <p class="subtitle">Wie das 4-Säulen-System funktioniert</p>
     </div>
     
     <div class="content">
@@ -411,271 +616,201 @@
             </div>
         </div>
         
-        <div class="section">
-            <h3>⚙️ Säule 1: Trading-Batterien (Finanzierung)</h3>
-            <p><span class="blue-highlight">Grundprinzip:</span> 5,6 GW / 11,2 GWh Batteriespeicher kaufen Graustrom bei Niedrigpreisen und verkaufen bei Hochpreisen. Sechs verschiedene Erlösströme generieren 960 Mio € Bruttoerlöse jährlich.</p>
-            
-            <p><span class="blue-highlight">Erlösquellen:</span> Day-Ahead Arbitrage (252 Mio €), Intraday-Trading (196 Mio €), Primärregelleistung (168 Mio €), Sekundärregelleistung (112 Mio €), Netzdienstleistungen (84 Mio €), Lastmanagement (148 Mio €).</p>
-            
-            <p><span class="number-highlight">Netto-Erlöse: 840 Mio € nach Abzug aller Betriebskosten</span></p>
-        </div>
-        
-        <div class="section">
-            <h3>🌞 Säule 2: Sahara-Grünstrom (Dekarbonisierung)</h3>
-            <p><span class="success-highlight">Bilanzieller Transfer:</span> Kein Bau von HGÜ-Leitungen nötig. Grünstrom wird über das europäische Verbundnetz bilanziell nach Bremen transferiert.</p>
-            
-            <p><span class="success-highlight">Solarpark-Beteiligung:</span> 10 GW Anteil an Sahara-Solarparks für 1,6 Mrd € liefert 9,45 TWh/Jahr echten Grünstrom nach Bremen.</p>
-            
-            <p><span class="success-highlight">CO2-Reduktion:</span> Ersetzt Graustrom mit 445g CO2/kWh und reduziert damit <span class="number-highlight">4,2 Millionen Tonnen CO2 jährlich</span>.</p>
-        </div>
-        
-        <div class="section">
-            <h3>⚡ Säule 3: Lastspitzen-Management</h3>
-            <p><span class="blue-highlight">Drei optimierte Batterietechnologien:</span></p>
-            <ul>
-                <li><span class="number-highlight">Sehr Schnell (4C):</span> 800 MWh für extreme Lastspitzen (10 Minuten)</li>
-                <li><span class="number-highlight">Schnell (2C):</span> 1.200 MWh für kurze hohe Lasten (15 Minuten)</li>
-                <li><span class="number-highlight">Lang-Speicher (0,5C):</span> 9.200 MWh für sehr lange Lastspitzen (2 Stunden)</li>
-            </ul>
-            <p><span class="success-highlight">Zusätzliche Erlöse:</span> 840 Mio €/Jahr durch optimierte Lastspitzen-Kappung.</p>
-        </div>
-        
-        <div class="section">
-            <h3>💨 Säule 4: Wasserstoff-Integration</h3>
-            <p><span class="blue-highlight">Zukunftssicherheit:</span> Sobald Deutschland die Nebenkosten und Umlagen für Wasserstoff klärt, kann das System für Grünwasserstoff-Produktion erweitert werden.</p>
-            
-            <p><span class="blue-highlight">Grünstahl für ArcelorMittal:</span> Direkter Grünwasserstoff aus Sahara-Grünstrom ermöglicht klimaneutrale Stahlproduktion.</p>
-        </div>
-    </div>
-</div>
-
-<!-- Seite 4: Detaillierte Finanzierung -->
-<div class="page">
-    <div class="header">
-        <div class="logo">FuSion E</div>
-        <div class="page-title">Finanzierung & Wirtschaftlichkeit</div>
-        <div class="subtitle">Vollständige Investitions- und Erlösrechnung</div>
-    </div>
-    
-    <div class="content">
-        <table class="financial-table">
-            <tr>
-                <th>Komponente</th>
-                <th>Investment</th>
-                <th>Jährliche Erlöse</th>
-                <th>CO2-Reduktion</th>
-            </tr>
-            <tr>
-                <td>Trading-Batterien (5,6 GW)</td>
-                <td class="negative">2,8 Mrd €</td>
-                <td class="positive">840 Mio € netto</td>
-                <td>0 t (nur Arbitrage)</td>
-            </tr>
-            <tr>
-                <td>Sahara-Solarparks (10 GW)</td>
-                <td class="negative">1,6 Mrd €</td>
-                <td class="positive">735 Mio €</td>
-                <td class="positive">4,2 Mio t</td>
-            </tr>
-            <tr>
-                <td>Lokale Grünstrom-Speicher</td>
-                <td class="negative">0,4 Mrd €</td>
-                <td class="positive">75 Mio €</td>
-                <td>Netzstabilität</td>
-            </tr>
-            <tr>
-                <td>Green Premium Industrie</td>
-                <td>-</td>
-                <td class="positive">150 Mio €</td>
-                <td>Direktvermarktung</td>
-            </tr>
-            <tr class="total-row">
-                <td><strong>GESAMTSUMME</strong></td>
-                <td class="negative"><strong>4,8 Mrd €</strong></td>
-                <td class="positive"><strong>1.800 Mio €/Jahr</strong></td>
-                <td class="positive"><strong>4,2 Mio t CO2</strong></td>
-            </tr>
-        </table>
-        
-        <div class="highlight-box">
-            <h4>💰 Herausragende Wirtschaftlichkeit</h4>
-            <p><span class="success-highlight">Amortisation:</span> <span class="number-highlight">3,3 Jahre nach Vollbetrieb</span></p>
-            <p><span class="success-highlight">IRR (Internal Rate of Return):</span> <span class="number-highlight">35% jährlich</span></p>
-            <p><span class="success-highlight">CO2-Vermeidungskosten ab 2030:</span> <span class="number-highlight">175 €/t</span> = zusätzlich 735 Mio €/Jahr</p>
-            <p><span class="success-highlight">Finanzierung:</span> <span class="highlight">Vollständig privatwirtschaftlich</span> - keine Subventionen erforderlich</p>
-        </div>
-        
-        <div class="section">
-            <h3>📊 Vergleich: Verluste vs. Gewinne</h3>
-            <p><span class="highlight">Bei ArcelorMittal-Schließung:</span> <span class="negative">-1,26 Mrd € Wirtschaftsschaden jährlich</span></p>
-            <p><span class="highlight">Mit FuSion E Lösung:</span> <span class="positive">+1,80 Mrd € Erlöse jährlich</span></p>
-            <p><span class="success-highlight">Netto-Vorteil für Bremen:</span> <span class="number-highlight">3,06 Mrd € jährlich</span></p>
-        </div>
-        
-        <div class="section">
-            <h3>💡 Zusätzliche Vorteile</h3>
-            <ul>
-                <li><span class="highlight">Arbeitsplätze:</span> ca. 3.300 ArcelorMittal-Jobs gerettet + neue Energie-Jobs</li>
-                <li><span class="highlight">Industriestrom:</span> Günstiger Grünstrom für gesamte Bremer Industrie</li>
-                <li><span class="highlight">Vorbild-Funktion:</span> Bremen wird Deutschlands Energie-Hauptstadt</li>
-                <li><span class="highlight">Technologie-Leadership:</span> Weltweite Aufmerksamkeit für deutsche Innovation</li>
-                <li><span class="highlight">EU-Vorreiter:</span> Modell für europaweite Dekarbonisierung</li>
-            </ul>
-        </div>
-        
-        <div class="timeline">
-            <h4>⚡ Umsetzungsplan: 12-18 Monate</h4>
-            <div class="timeline-item"><span class="number-highlight">Monat 1-3:</span> Politische Unterstützung für beschleunigte Genehmigungsverfahren sichern</div>
-            <div class="timeline-item"><span class="number-highlight">Monat 4-6:</span> Finanzierung klären (Trading-Erlöse als Sicherheit)</div>
-            <div class="timeline-item"><span class="number-highlight">Monat 7-12:</span> Detailplanung mit ArcelorMittal, Baubeginn Trading-Batterien</div>
-            <div class="timeline-item"><span class="number-highlight">Monat 13-18:</span> Erste Trading-Erlöse finanzieren Sahara-Solarpark-Beteiligung</div>
-        </div>
-    </div>
-</div>
-
-<!-- Seite 5: Partner-Netzwerk -->
-<div class="page">
-    <div class="header">
-        <div class="logo">FuSion E</div>
-        <div class="page-title">Unser Partner-Netzwerk</div>
-        <div class="subtitle">Internationale Expertise für sofortige Umsetzung</div>
-    </div>
-    
-    <div class="content">
-        <div class="section">
-            <h3>🤝 Bewährte Partner statt Startup-Risiko</h3>
-            <p>FuSion E operiert nicht als isoliertes Startup, sondern als Zentrum eines bewährten internationalen Netzwerks mit über 30 Jahren Energiebranche-Expertise, direkten Regierungskontakten und aktuellen Großprojekten von 1,5 GW.</p>
-        </div>
-        
-        <div class="partners-grid">
-            <div class="partners-row">
-                <div class="partner-cell">
-                    <div class="partner-name">🇫🇷 Jean-Luc Westphal</div>
-                    <div class="partner-role">Core Partner • Bank de France Aufsichtsrat • Vizepräsident der USA Al Gore lobenswerte Anerkennung • Hanau Groupe</div>
-                </div>
-                <div class="partner-cell">
-                    <div class="partner-name">🇩🇪 Enlop GmbH</div>
-                    <div class="partner-role">EPC Partner • 1,5 GW / 3 GWh Speicher AKTUELL IM BAU • Deutschlands größter Graustromspeicher</div>
-                </div>
-                <div class="partner-cell">
-                    <div class="partner-name">🇩🇪 Florian Wehner</div>
-                    <div class="partner-role">Vorstand MIT Union Fulda • CDU-Wirtschaftspolitik • Hessische Landespolitik • Direktzugang</div>
-                </div>
-                <div class="partner-cell">
-                    <div class="partner-name">🇦🇹 WSKW Österreich</div>
-                    <div class="partner-role">Höchste politische Ebenen • EU-Energiedrehscheibe • Alpine Speicher-Expertise • Ost-/Südosteuropa</div>
-                </div>
+        <div class="section-box">
+            <div class="section-header technical">
+                ⚙️ Säule 1: Trading-Batterien (Finanzierung)
             </div>
-            <div class="partners-row">
-                <div class="partner-cell">
-                    <div class="partner-name">🇺🇸 HAC Helmut Krambeck</div>
-                    <div class="partner-role">HAC-Geschäftsführung • Institutionelle Gelder • Riesige USA-Partnerschaften • Politik-Türöffner</div>
-                </div>
-                <div class="partner-cell">
-                    <div class="partner-name">🇪🇺 ABAO</div>
-                    <div class="partner-role">Friedrich Merz Termin 8.7.25 • Katharina Reiche Termin 8.7.25 • EU-Entwickler-Elite • Infrastruktur-Netzwerk</div>
-                </div>
-                <div class="partner-cell">
-                    <div class="partner-name">🌍 Lichtblick</div>
-                    <div class="partner-role">Stromtransfer-Gespräche • Markt-Validierung etablierter Player • Vertriebskanal für Dekarbonisierung</div>
-                </div>
-                <div class="partner-cell">
-                    <div class="partner-name">📞 Kontakt</div>
-                    <div class="partner-role">Emir Keco • ek@fusion-e.de • +49 171 320 9 240<br><br>Bennet Bullmann • bb@fusion-e.de • +49 173 - 2458255</div>
+            <div class="section-content">
+                <p><span class="blue-highlight">Grundprinzip:</span> 5,6 GW / 11,2 GWh Batteriespeicher kaufen Graustrom bei Niedrigpreisen und verkaufen bei Hochpreisen.</p>
+                
+                <p><span class="blue-highlight">Sechs Erlösströme:</span></p>
+                <p>• Day-Ahead Arbitrage: 252 Mio €/Jahr<br>
+                • Intraday-Trading: 196 Mio €/Jahr<br>
+                • Primärregelleistung: 168 Mio €/Jahr<br>
+                • Sekundärregelleistung: 112 Mio €/Jahr<br>
+                • Netzdienstleistungen: 84 Mio €/Jahr<br>
+                • Lastmanagement: 148 Mio €/Jahr</p>
+                
+                <p><span class="number-highlight">Gesamt: 960 Mio € Bruttoerlöse, 840 Mio € Nettoerlöse</span></p>
+            </div>
+        </div>
+        
+        <div class="section-box">
+            <div class="section-header solution">
+                🌞 Säule 2: Sahara-Grünstrom (Dekarbonisierung)
+            </div>
+            <div class="section-content">
+                <p><span class="success-highlight">Bilanzieller Transfer:</span> Kein Bau von HGÜ-Leitungen nötig. Grünstrom wird über das europäische Verbundnetz bilanziell nach Bremen transferiert.</p>
+                
+                <p><span class="success-highlight">Solarpark-Beteiligung:</span> 10 GW Anteil an Sahara-Solarparks für 1,6 Mrd € liefert 9,45 TWh/Jahr echten Grünstrom.</p>
+                
+                <p><span class="success-highlight">CO2-Reduktion:</span> Ersetzt Graustrom mit 445g CO2/kWh und reduziert damit 4,2 Millionen Tonnen CO2 jährlich.</p>
+            </div>
+        </div>
+        
+        <div class="section-box">
+            <div class="section-header financial">
+                ⚡ Säule 3: Lastspitzen-Management
+            </div>
+            <div class="section-content">
+                <p><span class="blue-highlight">Drei Batterietechnologien:</span></p>
+                <p>• <span class="number-highlight">Sehr Schnell (4C):</span> 800 MWh für extreme Lastspitzen (10 Min)<br>
+                • <span class="number-highlight">Schnell (2C):</span> 1.200 MWh für kurze hohe Lasten (15 Min)<br>
+                • <span class="number-highlight">Lang-Speicher (0,5C):</span> 9.200 MWh für lange Lastspitzen (2 Std)</p>
+                
+                <p><span class="success-highlight">Zusätzliche Erlöse:</span> 840 Mio €/Jahr durch optimierte Lastspitzen-Kappung bei 1,68 Mrd € Investment.</p>
+            </div>
+        </div>
+        
+        <div class="section-box">
+            <div class="section-header urgent">
+                💨 Säule 4: Wasserstoff-Integration
+            </div>
+            <div class="section-content">
+                <p><span class="blue-highlight">Zukunftssicherheit:</span> Sobald Deutschland die Nebenkosten und Umlagen für Wasserstoff klärt, kann das System erweitert werden.</p>
+                
+                <p><span class="blue-highlight">Grünwasserstoff für ArcelorMittal:</span> Direkter Grünwasserstoff aus Sahara-Grünstrom für die Stahlproduktion.</p>
+                
+                <p><span class="blue-highlight">Jean-Luc's Unterstützung:</span> Vollständige technische Unterstützung für die Wasserstoff-Integration durch unseren Partner.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Seite 4: Finanzierung & Ausblick -->
+<div class="page">
+    <div class="header">
+        <div class="logo">FuSion E</div>
+        <h1 class="page-title">Finanzierung & Umsetzung</h1>
+        <p class="subtitle">Vollständige Wirtschaftlichkeitsrechnung</p>
+    </div>
+    
+    <div class="content">
+        <div class="section-box">
+            <div class="section-header financial">
+                💰 Vollständige Finanzübersicht
+            </div>
+            <div class="section-content">
+                <table class="financial-table">
+                    <tr>
+                        <th>Komponente</th>
+                        <th>Investment</th>
+                        <th>Jährliche Erlöse</th>
+                        <th>CO2-Reduktion</th>
+                    </tr>
+                    <tr>
+                        <td>Trading-Batterien (5,6 GW)</td>
+                        <td class="negative">2,8 Mrd €</td>
+                        <td class="positive">840 Mio € netto</td>
+                        <td>0 t (nur Arbitrage)</td>
+                    </tr>
+                    <tr>
+                        <td>Sahara-Solarparks (10 GW)</td>
+                        <td class="negative">1,6 Mrd €</td>
+                        <td class="positive">735 Mio €</td>
+                        <td class="positive">4,2 Mio t</td>
+                    </tr>
+                    <tr>
+                        <td>Lokale Grünstrom-Speicher</td>
+                        <td class="negative">0,4 Mrd €</td>
+                        <td class="positive">75 Mio €</td>
+                        <td>Netzstabilität</td>
+                    </tr>
+                    <tr>
+                        <td>Green Premium Industrie</td>
+                        <td>-</td>
+                        <td class="positive">150 Mio €</td>
+                        <td>Direktvermarktung</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>GESAMTSUMME</strong></td>
+                        <td class="negative"><strong>4,8 Mrd €</strong></td>
+                        <td class="positive"><strong>1.800 Mio €/Jahr</strong></td>
+                        <td class="positive"><strong>4,2 Mio t CO2</strong></td>
+                    </tr>
+                </table>
+                
+                <div style="margin-top: 10mm; padding: 8mm; background: #f8f9fa; border-radius: 5pt;">
+                    <p><span class="success-highlight">Amortisation:</span> <span class="number-highlight">3,3 Jahre nach Vollbetrieb</span></p>
+                    <p><span class="success-highlight">IRR (Internal Rate of Return):</span> <span class="number-highlight">35% jährlich</span></p>
+                    <p><span class="success-highlight">CO2-Vermeidungskosten ab 2030:</span> <span class="number-highlight">175 €/t</span> = zusätzlich 735 Mio €/Jahr</p>
+                    <p><span class="success-highlight">Finanzierung:</span> <span class="highlight">Vollständig privatwirtschaftlich</span> - keine Subventionen erforderlich</p>
                 </div>
             </div>
         </div>
         
-        <div class="section">
-            <h3>🎯 Aktuelles Momentum</h3>
-            <ul>
-                <li><span class="highlight">8. Juli 2025:</span> Termine mit Friedrich Merz (CDU-Vorsitzender) + Katharina Reiche (Ex-Staatssekretärin, VKU)</li>
-                <li><span class="highlight">Operative Exzellenz:</span> 1,5 GW Projekt im Bau (nicht nur PowerPoint)</li>
-                <li><span class="highlight">Markt-Validierung:</span> Lichtblick-Gespräche bestätigen Geschäftsmodell</li>
-                <li><span class="highlight">Timing-Vorteil:</span> Perfekte Positionierung nach ArcelorMittal-Krise</li>
-                <li><span class="highlight">Internationale Anerkennung:</span> Von Bank de France bis Al Gore</li>
-            </ul>
+        <div class="timeline-box">
+            <h4>⚡ Umsetzung in 12-18 Monaten</h4>
+            <div class="timeline-item"><span class="number-highlight">Monat 1-3:</span> Politische Unterstützung für beschleunigte Genehmigungsverfahren</div>
+            <div class="timeline-item"><span class="number-highlight">Monat 4-6:</span> Finanzierung klären (Trading-Erlöse von 1,8 Mrd €/Jahr als Sicherheit)</div>
+            <div class="timeline-item"><span class="number-highlight">Monat 7-12:</span> Detailplanung mit ArcelorMittal und Baubeginn der Trading-Batterien</div>
+            <div class="timeline-item"><span class="number-highlight">Monat 13-18:</span> Erste Trading-Erlöse finanzieren die Sahara-Solarpark-Beteiligung</div>
         </div>
         
-        <div class="highlight-box">
-            <h4>💪 Vertrauens-Multiplikatoren</h4>
-            <p>Unser Partner-Netzwerk bietet eine einzigartige Kombination aus <span class="highlight">operativer Exzellenz</span> (1,5 GW Projekt im Bau), <span class="highlight">höchsten politischen Kontakten</span> (Merz-Termin 8.7.25), <span class="highlight">internationaler Vernetzung</span> (Bank de France bis Al Gore) und <span class="highlight">Markt-Validierung</span> (Lichtblick-Gespräche).</p>
-            
-            <p><span class="success-highlight">Das Ergebnis:</span> Startup-Innovation mit Enterprise-Vertrauen und <span class="number-highlight">null Prozent Startup-Risiko</span>.</p>
+        <div class="section-box">
+            <div class="section-header urgent">
+                🎯 Kritische Erfolgsfaktoren
+            </div>
+            <div class="section-content">
+                <p><span class="number-highlight">1. Politische Unterstützung:</span> Beschleunigte Genehmigungsverfahren für strategisches Infrastrukturprojekt</p>
+                
+                <p><span class="number-highlight">2. Finanzierung:</span> Kreditvergabe auf Basis der soliden Trading-Erlöse von 1,8 Mrd €/Jahr</p>
+                
+                <p><span class="number-highlight">3. ArcelorMittal:</span> Zügige Vertragsverhandlungen für langfristige Grünstrom-Lieferung</p>
+                
+                <p><span class="success-highlight">Unser Beitrag:</span> Von unserer Seite steht einer zeitnahen Umsetzung nichts entgegen. Alle Partner sind bereit und die Technologie ist erprobt.</p>
+            </div>
         </div>
         
-        <div class="section">
-            <h3>🏆 Erfolgsfaktoren unseres Netzwerks</h3>
-            <ul>
-                <li><span class="highlight">Bewährte Zusammenarbeit:</span> Nicht nur theoretische Partner, sondern operative Realität</li>
-                <li><span class="highlight">Komplementäre Expertise:</span> Technologie, Politik, Finanzierung, Umsetzung</li>
-                <li><span class="highlight">Internationale Reichweite:</span> Deutschland, Frankreich, Österreich, USA</li>
-                <li><span class="highlight">Höchste Glaubwürdigkeit:</span> Von Regierungsebene bis Finanzwelt anerkannt</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<!-- Seite 6: Call to Action -->
-<div class="page">
-    <div class="header">
-        <div class="logo">FuSion E</div>
-        <div class="page-title">Einladung zum Dialog</div>
-        <div class="subtitle">Bremen kann zum Vorbild für ganz Deutschland werden</div>
-    </div>
-    
-    <div class="content">
-        <div class="section">
-            <h3>🚀 Kritische Erfolgsfaktoren</h3>
-            <p><span class="number-highlight">1. Politische Unterstützung:</span> Beschleunigte Genehmigungsverfahren für dieses strategische Infrastrukturprojekt. Bremen kann Vorreiter werden und deutschlandweit Signalwirkung entfalten.</p>
+        <div class="call-to-action">
+            <h3>🤝 Einladung zum Dialog</h3>
+            <p>Wir würden uns sehr über die Gelegenheit freuen, Ihnen unser Konzept persönlich vorstellen zu können. Von unserer Seite steht im Ganzen nichts entgegen, und wir würden einem kurzfristigen Termin gerne zustimmen.</p>
             
-            <p><span class="number-highlight">2. Finanzierung:</span> Kreditvergabe auf Basis der soliden Trading-Erlöse von 1,8 Mrd €/Jahr. Die Wirtschaftlichkeit ist durch mehrere unabhängige Erlösströme abgesichert.</p>
+            <p>Bremen kann zum Vorbild für ganz Deutschland werden - als Beweis, dass Dekarbonisierung und Arbeitsplätze sich nicht ausschließen, sondern ergänzen.</p>
             
-            <p><span class="number-highlight">3. ArcelorMittal:</span> Zügige Vertragsverhandlungen für langfristige Grünstrom-Lieferung und Integration in die Dekarbonisierungsstrategie.</p>
+            <p><span style="font-weight: 700;">Wir stehen für weitere Gespräche gerne zur Verfügung und freuen uns auf Ihre Rückmeldung.</span></p>
         </div>
         
-        <div class="highlight-box">
-            <h4>🎯 Das Zeitfenster ist jetzt</h4>
-            <p>Die ArcelorMittal-Krise bietet eine einmalige Chance: <span class="highlight">Aus der Not eine Tugend machen</span> und Bremen zum Vorbild für ganz Deutschland entwickeln. Während andere Regionen noch diskutieren, kann Bremen handeln und zum <span class="blue-highlight">deutschen Energie-Champion</span> werden.</p>
-            
-            <p><span class="success-highlight">Unser Beitrag:</span> Von unserer Seite steht einer zeitnahen Umsetzung nichts entgegen. Alle Partner sind bereit, die Technologie ist erprobt, die Finanzierung ist dargestellt.</p>
-        </div>
-        
-        <div class="section">
-            <h3>💡 Vision: Bremen als Deutschlands Energie-Hauptstadt</h3>
-            <ul>
-                <li><span class="highlight">Arbeitsplätze gerettet:</span> ca. 3.300 ArcelorMittal-Jobs + neue Energie-Jobs</li>
-                <li><span class="highlight">Wirtschaftskraft gestärkt:</span> 1,8 Mrd € Erlöse statt 1,26 Mrd € Verluste</li>
-                <li><span class="highlight">Klimaschutz profitabel:</span> 4,2 Mio t CO2-Reduktion ohne Subventionen</li>
-                <li><span class="highlight">Innovation gefördert:</span> Bremen wird Vorreiter für Energie-Trading</li>
-                <li><span class="highlight">Unabhängigkeit erreicht:</span> Privatwirtschaftlich statt staatsabhängig</li>
-            </ul>
-        </div>
-        
-        <div class="section">
-            <h3>🌍 Internationale Ausstrahlung</h3>
-            <p>Das Bremen-Modell würde international Beachtung finden: <span class="highlight">Wie Deutschland Deindustrialisierung in Dekarbonisierung verwandelt</span> und dabei Arbeitsplätze rettet und Wohlstand schafft.</p>
-            
-            <p>Von Jean-Luc's Al Gore-Kontakten bis zu unseren EU-Partnern - das Projekt würde als <span class="blue-highlight">Best Practice für die globale Energiewende</span> wahrgenommen werden.</p>
-        </div>
-        
-        <div class="highlight-box">
-            <h4>🤝 Einladung zum persönlichen Gespräch</h4>
-            <p>Wir würden uns sehr über die Gelegenheit freuen, Ihnen unser Konzept persönlich vorstellen zu können. <span class="highlight">Von unserer Seite steht im Ganzen nichts entgegen, und wir würden einem kurzfristigen Termin gerne zustimmen.</span></p>
-            
-            <p>Bremen kann beweisen, dass Dekarbonisierung und Arbeitsplatzsicherung sich nicht ausschließen, sondern optimal ergänzen können.</p>
-            
-            <p><span class="success-highlight">Die Lösung ist bereit. Das Team steht bereit. Die Partner sind bereit.</span></p>
-            
-            <p><span class="number-highlight">Wir stehen für weitere Gespräche gerne zur Verfügung und freuen uns auf Ihre Rückmeldung.</span></p>
-        </div>
-        
-        <div class="info-box" style="text-align: center; margin-top: 15mm;">
-            <p><strong>Kontakt für weitere Gespräche:</strong></p>
-            <p><span class="highlight">Emir Keco</span> • ek@fusion-e.de • +49 171 320 9 240</p>
-            <p><span class="highlight">Bennet Bullmann</span> • bb@fusion-e.de • +49 173 - 2458255</p>
-            <br>
-            <p style="font-size: 10pt; color: #666;">FuSion E UG (haftungsbeschränkt) - Internationale Partnerschaften für die deutsche Energiewende</p>
+        <div class="partners-section">
+            <h4 style="text-align: center; margin-bottom: 8mm; color: #2c3e50;">🤝 Unser internationales Partner-Netzwerk</h4>
+            <div class="partners-grid">
+                <div class="partners-row">
+                    <div class="partner-cell">
+                        <div class="partner-name">🇫🇷 Jean-Luc Westphal</div>
+                        <div class="partner-role">Core Partner • Bank de France Aufsichtsrat • Vizepräsident der USA Al Gore lobenswerte Anerkennung</div>
+                    </div>
+                    <div class="partner-cell">
+                        <div class="partner-name">🇩🇪 Enlop GmbH</div>
+                        <div class="partner-role">EPC Partner • 1,5 GW Speicher im Bau • Gigawatt-Expertise</div>
+                    </div>
+                    <div class="partner-cell">
+                        <div class="partner-name">🇩🇪 Florian Wehner</div>
+                        <div class="partner-role">MIT Union Fulda • CDU-Wirtschaftspolitik • Hessen Landespolitik</div>
+                    </div>
+                    <div class="partner-cell">
+                        <div class="partner-name">🇦🇹 WSKW Österreich</div>
+                        <div class="partner-role">Höchste politische Ebenen • EU-Energiedrehscheibe • Alpine Speicher</div>
+                    </div>
+                </div>
+                <div class="partners-row">
+                    <div class="partner-cell">
+                        <div class="partner-name">🇺🇸 HAC Helmut Krambeck</div>
+                        <div class="partner-role">Institutionelle Gelder • USA-Partnerschaften • Internationale Finanzierung</div>
+                    </div>
+                    <div class="partner-cell">
+                        <div class="partner-name">🇪🇺 ABAO</div>
+                        <div class="partner-role">Friedrich Merz Termin 8.7.25 • Katharina Reiche • EU-Entwickler-Netzwerk</div>
+                    </div>
+                    <div class="partner-cell">
+                        <div class="partner-name">🌍 Lichtblick</div>
+                        <div class="partner-role">Stromtransfer-Gespräche • Markt-Validierung • Vertriebskanal für Grünstrom</div>
+                    </div>
+                    <div class="partner-cell">
+                        <div class="partner-name">📞 Kontakt</div>
+                        <div class="partner-role">Emir Keco • ek@fusion-e.de • +49 171 320 9 240<br>Bennet Bullmann • bb@fusion-e.de • +49 173 - 2458255</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
