@@ -361,12 +361,49 @@
         }
         
         .page-number {
-            position: absolute;
-            bottom: 10mm;
-            right: 10mm;
-            font-size: 10pt;
-            color: #7f8c8d;
-            font-weight: 400;
+            display: none;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 8mm auto;
+            background: #f8f9fa;
+            border-radius: 8pt;
+            overflow: hidden;
+            box-shadow: 0 2pt 8pt rgba(0,0,0,0.1);
+            page-break-inside: avoid;
+        }
+        
+        .video-container iframe {
+            width: 100%;
+            height: 225px;
+            border: none;
+            display: block;
+        }
+        
+        .video-caption {
+            padding: 5mm;
+            text-align: center;
+            font-size: 9pt;
+            color: #555;
+            background: white;
+        }
+        
+        @media print {
+            .video-container {
+                border: 1pt solid #dee2e6;
+                background: white;
+            }
+            .video-container iframe {
+                display: none;
+            }
+            .video-caption::after {
+                content: " (Video: https://youtu.be/IUhF2KlplYk?t=80)";
+                font-size: 8pt;
+                color: #777;
+            }
         }
         
         a {
@@ -449,8 +486,6 @@
         <div class="quote-box">
             <p>"Nach intensiven Gesprächen seit Januar 2025 ist ArcelorMittal begeistert von unserem 4-Säulen-Ansatz. Was als Skepsis gegenüber Speichern begann, wurde zur Überzeugung für eine ganzheitliche Dekarbonisierungsstrategie."</p>
         </div>
-        
-        <div class="page-number">Seite 1 von 4</div>
     </div>
 </div>
 
@@ -472,9 +507,20 @@
                 
                 <p><span class="success-highlight">Internationale Anerkennung:</span></p>
                 <p>• <span class="highlight">Aufsichtsrat Bank de France</span> - Zugang zu höchsten Finanzkreisen<br>
-                • <span class="highlight">Vizepräsident der USA Al Gore lobenswerte Anerkennung</span> - <a href="https://www.youtube.com/watch?v=IUhF2KlplYk&t=80s" style="color: #3498db;">Öffentlich dokumentiert (Video)</a><br>
+                • <span class="highlight">Vizepräsident der USA Al Gore lobenswerte Anerkennung</span><br>
                 • <span class="highlight">Weltrekord In-Dach Installation</span> - Technische Innovation<br>
                 • <span class="highlight">Bordeaux 300 MW</span> - Ehemals größte PV-Anlage Europas</p>
+                
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/IUhF2KlplYk?start=80" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                    <div class="video-caption">
+                        <strong>Vizepräsident der USA Al Gore</strong><br>
+                        Lobenswerte Anerkennung für Jean-Luc Westphal
+                    </div>
+                </div>
                 
                 <p><span class="success-highlight">Kreative Ergänzung geschätzt:</span> Jean-Luc schätzt meine innovativen Ideen und sieht großes Potenzial in der Wasserstoff-Integration, sobald Deutschland die regulatorischen Rahmenbedingungen klärt.</p>
                 
@@ -616,8 +662,6 @@
                 <p><span class="blue-highlight">Jean-Luc's Unterstützung:</span> Vollständige technische Unterstützung für die Wasserstoff-Integration durch unseren Partner.</p>
             </div>
         </div>
-        
-        <div class="page-number">Seite 3 von 4</div>
     </div>
 </div>
 
@@ -756,8 +800,6 @@
                 </div>
             </div>
         </div>
-        
-        <div class="page-number">Seite 4 von 4</div>
     </div>
 </div>
 
